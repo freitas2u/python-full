@@ -1,3 +1,8 @@
+#Criar chaves que não foram pré-definidas
+pessoa = {"nome": "Fernando", "idade": 38, "altura": 173}
+pessoa.update({"cep": "123456"})
+print(pessoa)
+
 #Dicionários são como objetos JSON. Possui índices nomeados
 pessoa = { "nome": "Fernando Freitas", "idade": 38, "cep": "77.059-020"}
 print (pessoa)
@@ -25,4 +30,11 @@ pessoas = [{ "nome": "Fernando", "idade":38, "altura":173 },
 #iterando Lista Pessoas
 for pessoa in pessoas:
     print(pessoa)
+    print(pessoa.values())
+    print(pessoa.keys())
+    print(pessoa.items())
     print(pessoa["nome"])
+
+for pessoa in pessoas:
+    print("*" * 100)
+    print(pessoa.keys())

@@ -17,8 +17,14 @@ while True:
         idade = int(input("Idade: "))
         altura = int(input("Altura: "))
 
-        pessoa = {"nome": nome, "idade": idade, "altura": altura}
+        pessoa = {
+            "nome": nome,
+            "idade": idade,
+            "altura": altura
+        }
 
         pessoas.append(pessoa)
 
 print(pessoas)
+
+
