@@ -1,4 +1,5 @@
 #O conceito de lista no python é semelhante ao vetor/array em outras linguagens
+#Listas são representadas com elementos entre colchetes: [1,2,3,4,5]
 
 
 nomes = ["Fatima", "Fernando", "Flávia", "Fabrício"]
