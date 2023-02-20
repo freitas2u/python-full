@@ -1,8 +1,1 @@
-Fernando 38
-Cleilda 33
-Aurora 0
-Eden 0
-Luna 0
-Miguel 0
-Dante 0
-Vergil 0
+Freitas 30 12345678910
