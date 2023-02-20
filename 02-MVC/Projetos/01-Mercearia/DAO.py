@@ -1,7 +1,6 @@
 """
     Camada DAO. Camada de acesso ao banco de dados (Inclusões, Alterações, Pesquisas, Exclusões)
 """
-from Models import Categoria
 
 class DaoCategoria:
     """
@@ -15,7 +14,7 @@ class DaoCategoria:
         Args:
             categoria (string): Descrição da Categoria
         """
-        with open("categorias.txt", "a") as arquivo:
+        with open("categorias.txt", "a", encoding='UTF-8') as arquivo:
             arquivo.writelines(categoria)
             arquivo.writelines("\n")
 
@@ -24,7 +23,7 @@ class DaoCategoria:
         """
             Lê conteúdo do arquivo texto e imprime o conteúdo lido na tela
         """
-        with open("categorias.txt", "r") as arquivo:
+        with open("categorias.txt", "r", encoding='UTF-8') as arquivo:
             cls.categoria = arquivo.readlines()
 
         print(cls.categoria)

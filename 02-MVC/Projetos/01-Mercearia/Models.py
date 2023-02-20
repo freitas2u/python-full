@@ -32,11 +32,11 @@ class Venda:
     """
         Classe de Vendas feitas
     """
-    def __init__(self, itens_vendidos: Produto, vendedor, comprador, qtde_vendida, data = datetime.now()):
-        self.itens_vendidos = itens_vendidos
+    def __init__(self, itens: Produto, vendedor, comprador, qtde, data = datetime.now()):
+        self.itens = itens
         self.vendedor = vendedor
         self.comrpador = comprador
-        self.qtde_vendida = qtde_vendida
+        self.qtde = qtde
         self.data = data
 
 class Fornecedor:
