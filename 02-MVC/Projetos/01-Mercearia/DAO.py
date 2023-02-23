@@ -1,15 +1,18 @@
 """
-    Camada DAO. Camada de acesso ao banco de dados (Inclusões, Alterações, Pesquisas, Exclusões)
+Camada DAO. Camada de acesso ao banco de dados (Inclusões, Alterações, Pesquisas, Exclusões)
 """
+
+from models import *
 
 class DaoCategoria:
     """
-        DAO Categoria. Salvar e Ler.
+    DAO Categoria.
+    Métodos: salvar(categoria) e ler().
     """
     @classmethod
     def salvar(cls, categoria):
         """
-            Salva Objeto pessoa no arquivo texto
+        Salva Objeto pessoa no arquivo texto
 
         Args:
             categoria (string): Descrição da Categoria
@@ -21,14 +24,206 @@ class DaoCategoria:
     @classmethod
     def ler(cls):
         """
-            Lê conteúdo do arquivo texto e imprime o conteúdo lido na tela
+        Lê conteúdo do arquivo texto e retorna uma lista de categorias
+
+        Returns:
+            cat: lista de categorias
         """
         with open("categorias.txt", "r", encoding='UTF-8') as arquivo:
             cls.categoria = arquivo.readlines()
 
-        print(cls.categoria)
+        cls.categoria = list(map(lambda x: x.replace('\n', ''), cls.categoria))
 
-DaoCategoria().salvar("Frutas")
-DaoCategoria().salvar("Verduras")
-DaoCategoria().salvar("Legumes")
-DaoCategoria().ler()
+        cat = []
+        for descricao in cls.categoria:
+            cat.append(Categoria(descricao))
+
+        return cat
+
+class DaoVenda:
+    """
+    DAO Venda. Salvar e Ler.
+    """
+    @classmethod
+    def salvar(cls, venda: Venda):
+        """
+        Salva Objeto venda no arquivo texto
+
+        Args:
+            Venda(itens, vendedor, comprador, qtde)
+            itens -> Objeto da classe Produto
+            vendedor -> nome do Vendedor
+            comprador -> nome do Comprador
+            qtde -> Quantidade Vendida
+        """
+        with open("venda.txt", "a", encoding="UTF-8") as arquivo:
+            arquivo.writelines(venda.itens.descricao + "|" + venda.itens.preco + "|" + venda.itens.categoria + "|" + venda.vendedor + "|" + venda.comprador + "|" + str(venda.qtde) + "|" + venda.data)
+            arquivo.writelines("\n")
+
+    @classmethod
+    def ler(cls):
+        """
+        Lê conteúdo do arquivo texto e retorna uma lista de listas de Vendas
+        """
+        with open("venda.txt", "r", encoding="UTF-8") as arquivo:
+            cls.venda = arquivo.readlines()
+
+        cls.venda = list(map(lambda x: x.replace("\n", ""), cls.venda))
+        cls.venda = list(map(lambda x: x.split("|"), cls.venda))
+        print(cls.venda)
+
+        vend = []
+        for i in cls.venda:
+            vend.append(Venda(Produto(i[0], i[1], i[2]), i[3], i[4], i[5], i[6]))
+
+        return vend
+
+class DaoEstoque:
+    """
+        DAO Estoque. Salvar e Ler.
+    """
+    @classmethod
+    def salvar(cls, produto: Produto, qtde):
+        """
+            Salva Objeto venda no arquivo texto
+
+        Args:
+            produto (Produto): Objeto da classe Produto:
+                descrição ->
+                preço ->
+                categoria ->
+            qtde (int): Quantidade atual no estoque
+        """
+        with open("estoque.txt", "a", encoding="UTF-8") as arquivo:
+            arquivo.writelines(produto.descricao + "|" + produto.preco + "|" + produto.categoria + "|" + str(qtde))
+            arquivo.writelines("\n")
+
+    @classmethod
+    def ler(cls):
+        """
+            Lê conteúdo do arquivo texto e retorna uma lista de produtos em estoque
+        """
+        with open("estoque.txt", "r", encoding="UTF-8") as arquivo:
+            cls.estoque = arquivo.readlines()
+
+        cls.estoque = list(map(lambda x: x.replace("\n", ""), cls.estoque))
+        cls.estoque = list(map(lambda x: x.split("|") ,cls.estoque))
+
+        est = []
+        if len(cls.estoque) > 0:
+            for i in cls.estoque:
+                est.append(Estoque(Produto(i[0], i[1], i[2]), i[3]))
+
+        return est
+
+class DaoFornecedor:
+    """
+        DAO Fornecedor. Salvar e Ler.
+    """
+    @classmethod
+    def salvar(cls, fornecedor: Fornecedor):
+        """
+            Salva Objeto fornecedor no arquivo texto
+
+        Args:
+            fornecedor (Fornecedor): Objeto da classe Fornecedor:
+                descrição ->
+                preço ->
+                categoria ->
+        """
+        with open("fornecedores.txt","a",encoding="UTF-8") as arquivo:
+            arquivo.writelines(fornecedor.nome + "|" + "" + fornecedor.cnpj + "|" + fornecedor.telefone + "|" + fornecedor.categoria)
+            arquivo.writelines("\n")
+
+    @classmethod
+    def ler(cls):
+        """
+            Lê conteúdo do arquivo texto e retorna uma lista de Fornecedores
+        """
+        with open("fornecedores.txt", "r", encoding="UTF-8") as arquivo:
+            cls.fornecedores = arquivo.readlines()
+
+        cls.fornecedores = list(map(lambda x: x.replace("\n", ''), cls.fornecedores))
+        cls.fornecedores = list(map(lambda x: x.split("|"), cls.fornecedores))
+        forn = []
+        for i in cls.fornecedores:
+            forn.append(Fornecedor(i[0], i[1], i[2], i[3]))
+
+        return forn
+
+class DaoPessoa:
+    """
+    DAO Pessoa. Salvar e Ler.
+    """
+    @classmethod
+    def salvar(cls, pessoa: Pessoa):
+        """
+        Salva Objeto pessoa no arquivo texto
+
+        Args:
+            pessoa (Pessoa):
+                nome ->
+                telefone ->
+                cpf ->
+                email ->
+                endereco ->
+        """
+        with open("clientes.txt", "a", encoding="UTF-8") as arquivo:
+            arquivo.writelines(pessoa.nome + "|" + pessoa.telefone + "|" + pessoa.cpf + "|" + pessoa.email + "|" + pessoa.endereco)
+            arquivo.writelines("\n")
+
+    @classmethod
+    def ler(cls):
+        """_summary_
+        """
+        with open("clientes.txt", "r", encoding="UTF-8") as arquivo:
+            arquivo.readlines()
+
+        cls.clientes = list(map(lambda x: x.replace("\n", ""), cls.clientes))
+        cls.clientes = list(map(lambda x: x.split("|"), cls.clientes))
+
+        cli = []
+        for i in cls.clientes:
+            cli.append(Pessoa(i[0], i[1], i[2], i[3], i[4]))
+
+        return cli
+
+class DaoFuncionario:
+    """
+    DAO Funcionario. Salvar e Ler.
+    """
+    @classmethod
+    def salvar(cls, funcionario: Funcionario):
+        """
+        Salva Objeto pessoa no arquivo texto
+
+        Args:
+            pessoa (Pessoa):
+                nome ->
+                telefone ->
+                cpf ->
+                email ->
+                endereco ->
+        """
+        with open("funcionarios.txt", "a", encoding="UTF-8") as arquivo:
+            arquivo.writelines(funcionario.clt + "|" + funcionario.nome + "|" + funcionario.telefone + "|" + funcionario.cpf + "|" + funcionario.email + "|" + funcionario.endereco)
+            arquivo.writelines("\n")
+
+    @classmethod
+    def ler(cls):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        with open("funcionarios.txt", "r", encoding="UTF-8") as arquivo:
+            cls.funcionarios = arquivo.readlines()
+
+        cls.funcionarios = list(map(lambda x: x.replace("\n", ""), cls.funcionarios))
+        cls.funcionarios = list(map(lambda x: x.split("|"), cls.funcionarios))
+
+        func = []
+        for i in cls.funcionarios:
+            func.append(Funcionario(i[0], i[1], i[2], i[3], i[4], i[5]))
+
+        return func
