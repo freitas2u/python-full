@@ -7,12 +7,13 @@ from models import *
 class DaoCategoria:
     """
     DAO Categoria.
+
     Métodos: salvar(categoria) e ler().
     """
     @classmethod
     def salvar(cls, categoria):
         """
-        Salva Objeto pessoa no arquivo texto
+        Salva Objeto categoria no arquivo texto
 
         Args:
             categoria (string): Descrição da Categoria
@@ -42,7 +43,9 @@ class DaoCategoria:
 
 class DaoVenda:
     """
-    DAO Venda. Salvar e Ler.
+    DAO Venda.
+
+    Métodos: salvar(venda) e ler().
     """
     @classmethod
     def salvar(cls, venda: Venda):
@@ -64,6 +67,9 @@ class DaoVenda:
     def ler(cls):
         """
         Lê conteúdo do arquivo texto e retorna uma lista de listas de Vendas
+
+        Returns:
+            vend: lista de vendas realizadas
         """
         with open("venda.txt", "r", encoding="UTF-8") as arquivo:
             cls.venda = arquivo.readlines()
@@ -80,12 +86,14 @@ class DaoVenda:
 
 class DaoEstoque:
     """
-        DAO Estoque. Salvar e Ler.
+    DAO Estoque.
+
+    Métodos: Salvar e Ler.
     """
     @classmethod
     def salvar(cls, produto: Produto, qtde):
         """
-            Salva Objeto venda no arquivo texto
+        Salva Objeto produto no arquivo texto e a sua quantidade atual em estoque
 
         Args:
             produto (Produto): Objeto da classe Produto:
@@ -101,7 +109,10 @@ class DaoEstoque:
     @classmethod
     def ler(cls):
         """
-            Lê conteúdo do arquivo texto e retorna uma lista de produtos em estoque
+        Lê conteúdo do arquivo texto e retorna uma lista de produtos em estoque
+
+        Returns:
+            est: Lista de produtos em estoque
         """
         with open("estoque.txt", "r", encoding="UTF-8") as arquivo:
             cls.estoque = arquivo.readlines()
@@ -118,17 +129,20 @@ class DaoEstoque:
 
 class DaoFornecedor:
     """
-        DAO Fornecedor. Salvar e Ler.
+    DAO Fornecedor.
+
+    Métodos: Salvar e Ler.
     """
     @classmethod
     def salvar(cls, fornecedor: Fornecedor):
         """
-            Salva Objeto fornecedor no arquivo texto
+        Salva Objeto fornecedor no arquivo texto
 
         Args:
             fornecedor (Fornecedor): Objeto da classe Fornecedor:
-                descrição ->
-                preço ->
+                nome ->
+                cnpj ->
+                telefone ->
                 categoria ->
         """
         with open("fornecedores.txt","a",encoding="UTF-8") as arquivo:
@@ -138,7 +152,10 @@ class DaoFornecedor:
     @classmethod
     def ler(cls):
         """
-            Lê conteúdo do arquivo texto e retorna uma lista de Fornecedores
+        Lê conteúdo do arquivo texto e retorna uma lista de Fornecedores
+
+        Returns:
+            forn: Lista de produtos em estoque
         """
         with open("fornecedores.txt", "r", encoding="UTF-8") as arquivo:
             cls.fornecedores = arquivo.readlines()
@@ -153,12 +170,14 @@ class DaoFornecedor:
 
 class DaoPessoa:
     """
-    DAO Pessoa. Salvar e Ler.
+    DAO Pessoa.
+
+    Métodos: Salvar e Ler.
     """
     @classmethod
     def salvar(cls, pessoa: Pessoa):
         """
-        Salva Objeto pessoa no arquivo texto
+        Salva um cliente (Objeto pessoa) no arquivo texto
 
         Args:
             pessoa (Pessoa):
@@ -174,7 +193,11 @@ class DaoPessoa:
 
     @classmethod
     def ler(cls):
-        """_summary_
+        """
+        Lê conteúdo do arquivo texto e retorna uma lista de clientes (Pessoas)
+
+        Returns:
+            cli: Lista de clientes cadastrados
         """
         with open("clientes.txt", "r", encoding="UTF-8") as arquivo:
             arquivo.readlines()
@@ -190,12 +213,14 @@ class DaoPessoa:
 
 class DaoFuncionario:
     """
-    DAO Funcionario. Salvar e Ler.
+    DAO Funcionario.
+
+    Métodos: Salvar e Ler.
     """
     @classmethod
     def salvar(cls, funcionario: Funcionario):
         """
-        Salva Objeto pessoa no arquivo texto
+        Salva funcionario (Objeto pessoa) no arquivo texto
 
         Args:
             pessoa (Pessoa):
@@ -211,10 +236,11 @@ class DaoFuncionario:
 
     @classmethod
     def ler(cls):
-        """_summary_
+        """
+        Lê conteúdo do arquivo texto e retorna uma lista de funcionários (Pessoas)
 
         Returns:
-            _type_: _description_
+            func: lista de funcionários (Objeto pessoa) cadastrados
         """
         with open("funcionarios.txt", "r", encoding="UTF-8") as arquivo:
             cls.funcionarios = arquivo.readlines()
